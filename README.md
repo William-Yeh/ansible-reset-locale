@@ -5,7 +5,7 @@ williamyeh.reset-locale for Ansible Galaxy
 
 ## Summary
 
-Role name in Ansible Galaxy: **[williamyeh.reset-locale](https://galaxy.ansible.com/list#/roles/XXXX)**
+Role name in Ansible Galaxy: **[williamyeh.reset-locale](https://galaxy.ansible.com/list#/roles/2716)**
 
 This Ansible role has the following features:
 
