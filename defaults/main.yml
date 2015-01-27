@@ -1,0 +1,16 @@
+---
+
+#
+# variables needed to be defined in user's playbook
+#
+
+
+#
+# user-configurable defaults
+#
+
+# default locale
+locale: "en_US.UTF-8"
+
+# stop accepting locale env vars from your client to the server?
+locale_stop: True
