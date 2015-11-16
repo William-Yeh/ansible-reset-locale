@@ -24,26 +24,21 @@
 - name: stop accepting locale env vars from your client to the server
   sudo: True
   lineinfile:
-    dest: /etc/ssh/sshd_config  
-    regexp: "^AcceptEnv LANG LC_(.+)"  
+    dest: /etc/ssh/sshd_config
+    regexp: "^AcceptEnv LANG LC_(.+)"
     line: "#AcceptEnv LANG LC_\\1"
     backrefs: yes
   when: locale_stop
   register: sshd_config
 
-
-#
-# SSH daemon name:
-#   - "ssh" in Debian/Ubuntu
-#   - "sshd" in RHEL/CentOS
-#
-# @see http://www.cyberciti.biz/faq/howto-restart-ssh/
-#
-- name: restart SSHd, if necessary
+# Restart SSH daemon on Debian/Ubuntu
+- name: restart SSHd on Debian based distros, if necessary
   sudo: True
-  service: name={{ item }}  state=reloaded
-  when: sshd_config|changed
-  with_items:
-    - ssh
-    - sshd
-  ignore_errors: true
+  service: name=ssh state=reloaded
+  when: sshd_config|changed and ansible_os_family == "Debian"
+
+# Restart SSH daemon on RedHat/Fedora
+- name: restart SSHD on RedHat based distros, if necessary
+  sudo: True
+  service: name=sshd state=reloaded
+  when: sshd_config|changed and ansible_os_family == "RedHat"
