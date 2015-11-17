@@ -15,6 +15,7 @@ galaxy_info:
         - name: Debian
           versions:
               - wheezy
+              - jessie
         - name: EL
           versions:
               - 6
