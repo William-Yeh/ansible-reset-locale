@@ -5,6 +5,11 @@
 # @see http://askubuntu.com/questions/144235/locale-variables-have-no-effect-in-remote-shell-perl-warning-setting-locale-f
 #
 
+- name: install package locales
+  sudo: True
+  apt: name=locales state=present
+  when: ansible_pkg_mgr == "apt"
+
 - name: create locales
   sudo: True
   locale_gen: name={{ locale }} state=present
