@@ -1,4 +1,5 @@
 - hosts: all
+  become: true
   tasks:
     - include: 'tasks/main.yml'
   vars_files:

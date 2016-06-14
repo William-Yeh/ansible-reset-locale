@@ -6,28 +6,23 @@
 #
 
 - name: install package locales
-  sudo: True
   apt: name=locales state=present
   when: ansible_pkg_mgr == "apt"
 
 - name: create locales
-  sudo: True
   locale_gen: name={{ locale }} state=present
   when: ansible_os_family == "Debian"
 
 - name: update-locale
-  sudo: True
   command: update-locale LC_ALL={{ locale }} LANG={{ locale }}
   when: ansible_os_family == "Debian"
 
 
 - name: install libselinux-python binary for Ansible to work
-  sudo: True
   yum: name=libselinux-python state=present
   when: ansible_pkg_mgr == "yum"
 
 - name: stop accepting locale env vars from your client to the server
-  sudo: True
   lineinfile:
     dest: /etc/ssh/sshd_config
     regexp: "^AcceptEnv LANG LC_(.+)"
@@ -38,12 +33,10 @@
 
 # Restart SSH daemon on Debian/Ubuntu
 - name: restart SSHd on Debian based distros, if necessary
-  sudo: True
   service: name=ssh state=reloaded
   when: sshd_config|changed and ansible_os_family == "Debian"
 
 # Restart SSH daemon on RedHat/Fedora
 - name: restart SSHD on RedHat based distros, if necessary
-  sudo: True
   service: name=sshd state=reloaded
   when: sshd_config|changed and ansible_os_family == "RedHat"
